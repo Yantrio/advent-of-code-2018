@@ -1,17 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Polymer } from './polymer';
-
-function getSolution(polymer: Polymer) {
-    let finished = false;
-    while (!finished) {
-        const deleted = polymer.collapseDown();
-        if (deleted === 0) {
-            finished = true;
-        }
-    }
-    return polymer.toString().length
-}
+import { getSolution } from './common';
 
 const input = fs.readFileSync(path.resolve(__dirname, 'input.txt')).toString();
 const poly = new Polymer(input);
