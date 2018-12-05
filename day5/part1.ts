@@ -1,0 +1,11 @@
+import * as fs from 'fs';
+import * as path from 'path';
+import { Polymer } from './polymer';
+
+const input = fs.readFileSync(path.resolve(__dirname, 'input.txt')).toString();
+
+const poly = new Polymer(input);
+
+
+
+console.log(`Solution: ${getSolution(poly)}`);
