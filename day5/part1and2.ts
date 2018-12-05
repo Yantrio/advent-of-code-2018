@@ -4,7 +4,7 @@ import * as path from 'path';
 const input = fs.readFileSync(path.resolve(__dirname, 'input.txt')).toString();
 
 export function react(polymer: string) {
-    let i = g0;
+    let i = 0;
     let units = polymer.split('');
     while (units[i + 1] !== undefined) {
         if (i < 0) { i = 0; }
