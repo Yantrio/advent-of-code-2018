@@ -10,9 +10,8 @@ export function react(polymer: string) {
     while (i + 1 < units.length) {
         if (i < 0) { i = 0; }
         if ((units[i].charCodeAt(0) ^ units[i + 1].charCodeAt(0)) === 32) {
-            units.splice(i, 2); i -= 2;
-        }
-        i++;
+            units.splice(i, 2); i -= 1;
+        } else { i++; }
     }
     return units.join('');
 }
