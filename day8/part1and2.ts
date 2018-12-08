@@ -15,7 +15,7 @@ function parse(input: number[], id: number = 0, nodeList: Node[] = []): { parsed
     const [childCount, metadataCount] = [input.shift(), input.shift()];
     const parsed: Node = {
         id: id++, childCount, metadataCount,
-        children: Array.from(Array(childCount), () => parse(input, id++, nodeList)).map((n) => n.parsed),
+        children: Array.from(Array(childCount), () => parse(input, id++, nodeList).parsed),
         metadata: Array.from(Array(metadataCount), () => input.shift())
     };
     nodeList.push(parsed);
