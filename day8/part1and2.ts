@@ -1,45 +1,29 @@
 import { input } from './input.json';
 
-export class Node {
-
-    constructor(public id: number,
-        public childCount: number,
-        public metadataCount: number,
-        public metadata: number[] = [],
-        public children: Node[] = []) {
-    }
-
-    public getValue() {
-        if (this.childCount === 0) {
-            return this.metadata.reduce((a, b) => a + b, 0);
-        }
-        return this.metadata
-            .filter((i) => i <= this.children.length && i > 0)
-            .map((idx) => this.children[idx - 1].getValue())
-            .reduce((a, b) => a + b, 0);
-    }
+export type Node = {
+    id: number, childCount: number, metadataCount: number, children: Node[], metadata: number[]
 }
 
-const nodes: Node[] = [];
-let idCounter = 0;
+const sum = (numbers: number[]) => numbers.reduce((a, b) => a + b, 0);
 
-function parseNode(startIndex: number, input: number[]): { node: Node, end: number } {
-    let position = startIndex;
-    const childCount = input[position++];
-    const metadataCount = input[position++];
-    const result = new Node(idCounter++, childCount, metadataCount);
-    for (let i = 0; i < childCount; i++) {
-        let { node, end } = parseNode(position, input);
-        result.children.push(node);
-        position = end;
-    }
-    result.metadata = input.slice(position, position + metadataCount);
-    position += metadataCount;
-    nodes.push(result); // im lazy and don't want to flatten the tree later if needed.
-    return { node: result, end: position };
+const getNodeValue = (node: Node) => (node.childCount === 0) ?
+    sum(node.metadata) :
+    node.metadata
+        .filter((i) => i <= node.children.length && i > 0)
+        .map((idx) => getNodeValue(node.children[idx - 1]))
+        .reduce((a, b) => a + b, 0);
+
+function parse(input: number[], id: number, nodes: Node[]): { node: Node, nodeList: Node[] } {
+    const [childCount, metadataCount] = [input.shift(), input.shift()];
+    const parsed: Node = {
+        id: id++, childCount, metadataCount,
+        children: Array.from(Array(childCount), () => parse(input, id++, nodes)).map((n) => n.node),
+        metadata: Array.from(Array(metadataCount), () => input.shift())
+    };
+    nodes.push(parsed);
+    return { node: parsed, nodeList: nodes };
 }
 
-parseNode(0, input);
-const solution = nodes.map((n) => n.metadata.reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
-console.log(`Solution Pt 1: ${solution}`);
-console.log(`Solution Pt 2: ${nodes.find((n) => n.id === 0).getValue()}`);
+const { node: rootNode, nodeList } = parse([...input], 0, []);
+console.log(`Solution Pt 1: ${sum(nodeList.map(((n) => sum(n.metadata))))}`);
+console.log(`Solution Pt 2: ${getNodeValue(rootNode)}`);
