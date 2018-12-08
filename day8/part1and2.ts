@@ -8,10 +8,9 @@ const sum = (numbers: number[]) => numbers.reduce((a, b) => a + b, 0);
 
 const getNodeValue = (node: Node) => (node.childCount === 0) ?
     sum(node.metadata) :
-    node.metadata
-        .filter((i) => i <= node.children.length && i > 0)
-        .map((idx) => getNodeValue(node.children[idx - 1]))
-        .reduce((a, b) => a + b, 0);
+    sum(node.metadata
+        .filter((i) => i <= node.children.length)
+        .map((idx) => getNodeValue(node.children[idx - 1])));
 
 function parse(input: number[], id: number, nodes: Node[]): { node: Node, nodeList: Node[] } {
     const [childCount, metadataCount] = [input.shift(), input.shift()];
