@@ -11,17 +11,17 @@ const getNodeValue = (node: Node) => (node.childCount === 0) ?
     sum(node.metadata.filter((i) => i <= node.children.length)
         .map((idx) => getNodeValue(node.children[idx - 1])));
 
-function parse(input: number[], id: number = 0, nodes: Node[] = []): { node: Node, nodeList: Node[] } {
+function parse(input: number[], id: number = 0, nodeList: Node[] = []): { parsed: Node, nodeList: Node[] } {
     const [childCount, metadataCount] = [input.shift(), input.shift()];
     const parsed: Node = {
         id: id++, childCount, metadataCount,
-        children: Array.from(Array(childCount), () => parse(input, id++, nodes)).map((n) => n.node),
+        children: Array.from(Array(childCount), () => parse(input, id++, nodeList)).map((n) => n.parsed),
         metadata: Array.from(Array(metadataCount), () => input.shift())
     };
-    nodes.push(parsed);
-    return { node: parsed, nodeList: nodes };
+    nodeList.push(parsed);
+    return { parsed, nodeList };
 }
 
-const { node: rootNode, nodeList } = parse([...input]);
+const { parsed: rootNode, nodeList } = parse([...input]);
 console.log(`Solution Pt 1: ${sum(nodeList.map(((n) => sum(n.metadata))))}`);
 console.log(`Solution Pt 2: ${getNodeValue(rootNode)}`);
