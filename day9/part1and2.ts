@@ -3,8 +3,7 @@ type placedMarble = {
 }
 
 function solve(input: string) {
-    const [, rawPlayerCount, rawMarbles] = /(\d+) players; last marble is worth (\d+) points/.exec(input);
-    const [playerCount, marbles] = [+rawPlayerCount, +rawMarbles]
+    const [, playerCount, marbles] = /(\d+) players; last marble is worth (\d+) points/.exec(input).map((res) => +res);
 
     //setup variables and make first marble
     const scores = Array(playerCount).fill(0);
@@ -32,4 +31,4 @@ function solve(input: string) {
 }
 
 console.log(`Solution pt1: ${solve('476 players; last marble is worth 71657 points')}`);
-console.log(`Solution pt2: ${solve('476 players; last marble is worth 7165700 points')}`);
+// console.log(`Solution pt2: ${solve('476 players; last marble is worth 7165700 points')}`);
