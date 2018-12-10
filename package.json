@@ -5,5 +5,8 @@
   "devDependencies": {
     "ts-node": "^7.0.1",
     "typescript": "^3.2.1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1"
   }
 }

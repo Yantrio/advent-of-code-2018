@@ -4,11 +4,12 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "lib": [
-            "dom",
+            "es2015",
             "es2017"
         ]
     },
     "exclude": [
-        "**/*.txt"
+        "**/*.txt",
+        "node_modules"
     ]
 }
