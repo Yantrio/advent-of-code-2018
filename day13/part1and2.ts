@@ -164,6 +164,5 @@ while (true) {
         console.log(`Carts remaining: ${carts.length}`);
         console.log(`---`);
         crashes.forEach((c) => console.log(`Crash at ${c.x},${c.y}`));
-
     }
 }
