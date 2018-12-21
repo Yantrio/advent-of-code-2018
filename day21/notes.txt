@@ -1,0 +1,34 @@
+#ip 5
+01 seti 123 0 1         // reg[1] = 123
+02 bani 1 456 1         // reg[1] |= 456
+03 eqri 1 72 1          // reg[1] == 72 ? goto 6 :  goto 5
+04 addr 1 5 5           // //this handles the goto start
+05 seti 0 0 5           // goto 1 //end of loop
+
+
+06 seti 0 4 1           // r[1] = 0
+07 bori 1 65536 4       // r[4] = r[1] | 65536
+08 seti 12772194 7 1    // r[1] = 12772194
+09 bani 4 255 3         // r[3] = r[4] & 255
+10 addr 1 3 1           // r[1] += r[3]
+11 bani 1 16777215 1    // r[1] &= 16777215
+12 muli 1 65899 1       // r[1] *= 65899
+13 bani 1 16777215 1    // r[1] &= 16777215
+14 gtir 256 4 3         // 256 > r[4] ? goto 18 : goto 17
+15 addr 3 5 5           // this handles the goto start
+16 addi 5 1 5           // loop back
+17 seti 27 3 5          // go to 27! this looks like our success case?
+18 seti 0 0 3           
+19 addi 3 1 2           
+20 muli 2 256 2         
+21 gtrr 2 4 2           
+22 addr 2 5 5           
+23 addi 5 1 5
+24 seti 25 5 5          
+25 addi 3 1 3
+26 seti 17 4 5
+27 setr 3 4 4           
+28 seti 7 1 5
+29 eqrr 1 0 3           
+30 addr 3 5 5
+31 seti 5 1 5
