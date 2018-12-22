@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
+    "node-dijkstra": "^2.5.0",
     "zeroes": "^0.1.0"
   }
 }
